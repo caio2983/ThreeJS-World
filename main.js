@@ -19,6 +19,16 @@ scene.add(cube);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.update();
+
+
+const geometry_torus = new THREE.TorusKnotGeometry( 1, 0.3, 64, 8 ); 
+const material_torus = new THREE.MeshBasicMaterial( { color: '#6995c2' } ); 
+const torusKnot = new THREE.Mesh( geometry_torus, material_torus ); scene.add( torusKnot );
+
+torusKnot.position.x = 6;
+torusKnot.position.y = 4;
+torusKnot.position.z = 4;
+scene.add(torusKnot);
     
 
 
@@ -27,6 +37,9 @@ function animate() {
 
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
+
+    torusKnot.rotation.x += 0.01;
+    torusKnot.rotation.y += 0.01;
 
     renderer.render(scene, camera); 
 }
@@ -57,3 +70,5 @@ plane.rotation.x = - Math.PI / 2;
 
 plane.position.x = 0;
 scene.add( plane );
+
+
