@@ -1,11 +1,11 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js';
 import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/jsm/controls/OrbitControls.js';
+import {FirstPersonControls} from 'https://cdn.skypack.dev/three@0.136/examples/jsm/controls/FirstPersonControls.js';
 
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 8;
-camera.position.y = 4;
+camera.position.set(0, 1.6, 10); 
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -29,17 +29,32 @@ torusKnot.position.x = 6;
 torusKnot.position.y = 4;
 torusKnot.position.z = 4;
 scene.add(torusKnot);
-    
+
+const controlsFP = new FirstPersonControls(camera, renderer.domElement); 
+controlsFP.lookSpeed = 1;  
+controlsFP.movementSpeed = 10; 
+controlsFP.lookVertical = true; 
+
+const clock = new THREE.Clock();
+
+
 
 
 function animate() {
     requestAnimationFrame(animate); 
+
+  
+    const delta = clock.getDelta(); 
+    controlsFP.update(delta); 
+
 
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
 
     torusKnot.rotation.x += 0.01;
     torusKnot.rotation.y += 0.01;
+
+    
 
     renderer.render(scene, camera); 
 }
